@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'weui'
 Vue.config.productionTip = false
 import VueResource from 'vue-resource'
+import './assets/css/style.css'
 Vue.use(VueResource) 
 
 new Vue({

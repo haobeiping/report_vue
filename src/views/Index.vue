@@ -16,7 +16,7 @@
          <p>试试简拼搜索:如：小明(xm)</p>
       </div>
       <div class="input_box">
-         <input type="text"  placeholder="请输入你的姓名..." v-model="t1" @keyup="get()" >
+         <input type="text"  placeholder="请输入你的姓名..." v-model="t1">
          <button type="btn" class="enter" @click="a=true">确认</button>
       </div>
      </div>
@@ -63,6 +63,17 @@
         },
         mounted () {
         },
+        watch: {
+          t1: function(){
+            if (this.t1 !== '') {
+              this.$http.get('/api/students/' + this.t1 + '/search').then((response)=>{
+                this.myDate = response.data
+              })
+            } else {
+              this.myDate = []
+            }
+          }
+        },
         methods:{
           showIdCardInput (val) {
             this.t1 = val
@@ -82,21 +93,11 @@
                 this.idCard = []
               })
             }
-          },
-          get: function(){
-            if (this.t1 !== '') {
-              this.$http.get('/api/students/' + this.t1 + '/search').then((response)=>{
-                this.myDate = response.data
-              })
-            } else {
-              this.myDate = []
-            }
           }
         }
       }
 </script>
-<style>
-
+<style scoped>
 .grey{
   background-color:#333;
 }
@@ -106,5 +107,5 @@
 .search li:active{
   background-color: #e1e1e1;
 }
-@import '../assets/css/style.css'
+
 </style>
